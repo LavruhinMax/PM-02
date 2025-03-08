@@ -27,7 +27,7 @@ jobs:
       - name: Build projects
         run: |
           dotnet build ./src/ExamApp/ExamApp/ExamApp.csproj --configuration Release
-          dotnet build ./test/UnitTest1/UnitTest1.csproj --configuration Release
+          dotnet build ./src/UnitTest1/UnitTest1.csproj --configuration Release
 
       - name: Run tests
         run: dotnet test ./test/UnitTest1/UnitTest1.csproj --configuration Release --no-build --verbosity normal  
