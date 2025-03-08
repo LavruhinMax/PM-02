@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main  
+  pull_request: 
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2 
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.x' 
+
+      - name: Restore dependencies
+        run: dotnet restore ./src/ExamApp/ExamApp/ExamApp.csproj
+
+      - name: Build projects
+        run: |
+          dotnet build ./src/ExamApp/ExamApp/ExamApp.csproj --configuration Release
+          dotnet build ./test/UnitTest1/UnitTest1.csproj --configuration Release
+
+      - name: Run tests
+        run: dotnet test ./test/UnitTest1/UnitTest1.csproj --configuration Release --no-build --verbosity normal  
